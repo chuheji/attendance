@@ -8,6 +8,7 @@
     <div class="box">
       <div class="wrap" v-for="(item, index) in result" :key="index">
         <van-panel title="批假人" :desc="item.name" :status="item.status" use-footer-slot>
+          <div class="start">请假人：{{item.department}} {{item.classes}} {{item.nickname}}</div>
           <div class="start">请假理由：{{item.reason}}</div>
           <div class="mid">请假开始时间：{{item.startTime}}</div>
           <div class="end">请假结束时间：{{item.endTime}}</div>

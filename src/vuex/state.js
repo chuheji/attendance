@@ -12,6 +12,8 @@ let ApproveLeave = getCookie('ApproveLeave')
 let CallRoll = getCookie('CallRoll')
 let Path = getCookie('Path')
 let nickname = getCookie('nickname')
+let department = getCookie('department')
+let classes = getCookie('classes')
 const state = {
   info: info,
   ID: ID,
@@ -27,6 +29,8 @@ const state = {
   message: '',
   isLoading: false,
   Path: Path,
-  nickname: nickname
+  nickname: nickname,
+  department: department,
+  classes: classes
 }
 export default state

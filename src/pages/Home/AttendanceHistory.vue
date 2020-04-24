@@ -1,3 +1,8 @@
+<!--
+ * @Author: 刘佑祥
+ * @LastEditors: 刘佑祥
+ * @LastEditTime: 2020-04-24 17:07:56
+ -->
 <template>
   <div>
     <Header name='签到历史'></Header>
@@ -11,9 +16,9 @@
           <div class="start">开始时间：{{item.startTime}}</div>
           <div class="mid">结束时间：{{item.endTime}}</div>
           <div class="end">签到时间：{{item.attendTime}}</div>
-          <div slot="footer">
+          <!-- <div slot="footer">
             <van-button @click="del(item.code)" size="small" type="danger">删除</van-button>
-          </div>
+          </div> -->
         </van-panel>
       </div>
     </div>

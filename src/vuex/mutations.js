@@ -8,6 +8,8 @@ const mutations = {
     setCookie('type', info.type)
     setCookie('Path', info.avatar)
     setCookie('account', info.account)
+    setCookie('department', info.department)
+    setCookie('classes', info.classes)
     setCookie('Attendance', info.Attendance)
     setCookie('IDRegister', info.IDRegister)
     setCookie('AttendanceHistory', info.AttendanceHistory)

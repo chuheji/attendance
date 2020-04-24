@@ -1,3 +1,8 @@
+<!--
+ * @Author: 刘佑祥
+ * @LastEditors: 刘佑祥
+ * @LastEditTime: 2020-04-24 17:08:13
+ -->
 <template>
   <div>
     <Header name='我的假条'></Header>
@@ -11,9 +16,9 @@
           <div class="start">请假理由：{{item.reason}}</div>
           <div class="mid">请假开始时间：{{item.startTime}}</div>
           <div class="end">请假结束时间：{{item.endTime}}</div>
-          <div slot="footer">
+          <!-- <div slot="footer">
             <van-button @click="del(item.id)" size="small" type="danger">删除</van-button>
-          </div>
+          </div> -->
         </van-panel>
       </div>
     </div>

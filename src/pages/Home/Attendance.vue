@@ -1,3 +1,9 @@
+<!--
+ * @Description:签到
+ * @Author: 刘佑祥
+ * @LastEditors: 刘佑祥
+ * @LastEditTime: 2020-04-22 18:27:04
+ -->
 <template>
   <div>
     <Header name='签到'></Header>
@@ -26,7 +32,8 @@ export default {
       result: null,
       lat: '',
       lng: '',
-      isLoading: false
+      isLoading: false,
+      attend: null
     }
   },
   methods: {
@@ -57,6 +64,16 @@ export default {
             _this.$toast(res.data.msg)
             return false
           } else if (res.data.code === 200) {
+            this.$axios.post('/api/selectlatetime', {
+              params: {code: _this.code}
+            }).then(res2 => {
+              if (Number(Utils.format()) > Number(res2.data.data[0].lateTime.replace(/\s/g, '').replace(/-/g, '').replace(/:/g, ''))) {
+                _this.attend = '迟到'
+              } else {
+                _this.attend = '正常'
+                console.log(_this.attend)
+              }
+            })
             const { BMap, BMAP_STATUS_SUCCESS } = window
             var map = new BMap.Map('allmap')
             var point = new BMap.Point(110, 33)
@@ -74,18 +91,20 @@ export default {
                 _this.$toast('网络错误,请检查网络')
               }
             })
-            console.log('签到位置：' + this.result[0].lng, this.result[0].lat)
-            console.log('您的位置：' + _this.lng + ',' + _this.lat)
             // 50米内可以签到
-            if (Math.abs(this.result[0].lat - this.lat) < 0.0005 && Math.abs(this.result[0].lng - this.lng) < 0.0005) {
+            if (Math.abs(this.result[0].lat - this.lat) < 0.1 && Math.abs(this.result[0].lng - this.lng) < 0.1) {
               let data = {}
               data.account = this.$store.state.account
+              data.nickname = this.$store.state.nickname
               data.name = this.result[0].name
               data.startTime = this.result[0].startTime
               data.endTime = this.result[0].endTime
               data.geo = this.result[0].geo
               data.attendTime = new Date().toLocaleString()
               data.code = this.code
+              data.department = this.$store.state.department
+              data.classes = this.$store.state.classes
+              data.attend = this.attend
               this.$axios.post('/api/toattendance', {
                 params: data
               }).then(res => {

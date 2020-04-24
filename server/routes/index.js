@@ -13,8 +13,7 @@ var createFolder = function (folder) {
   }
 }
 
-var uploadFolder = './upload/'
-
+var uploadFolder = './server/upload/'
 createFolder(uploadFolder)
 
 // 通过 filename 属性定制
@@ -77,12 +76,12 @@ router.post('/loginType', (req, res) => {
       throw err
     } else {
       if (!data.length) {
-        res.send({msg: '用户不存在'})
+        res.send({msg: '用户名或密码错误'})
       } else {
         if (data[0].type === 'teacher') {
-          res.send({data: {type: 'teacher', id: data[0].id, avatar: data[0].avatar, account: data[0].account, nickname: data[0].nickname, Attendance: false, IDRegister: true, AttendanceHistory: false, AskLeave: false, ApplicationLeave: false, ApproveLeave: true, CallRoll: true}, msg: '操作成功', code: 200})
+          res.send({data: {type: 'teacher', id: data[0].id, avatar: data[0].avatar, account: data[0].account, nickname: data[0].nickname, department: data[0].department, classes: data[0].classes, Attendance: false, IDRegister: true, AttendanceHistory: false, AskLeave: false, ApplicationLeave: false, ApproveLeave: true, CallRoll: true}, msg: '操作成功', code: 200})
         } else if (data[0].type === 'student') {
-          res.send({data: {type: 'student', id: data[0].id, avatar: data[0].avatar, account: data[0].account, nickname: data[0].nickname, Attendance: true, IDRegister: true, AttendanceHistory: true, AskLeave: true, ApplicationLeave: true, ApproveLeave: false, CallRoll: false}, msg: '操作成功', code: 200})
+          res.send({data: {type: 'student', id: data[0].id, avatar: data[0].avatar, account: data[0].account, nickname: data[0].nickname, department: data[0].department, classes: data[0].classes, Attendance: true, IDRegister: true, AttendanceHistory: true, AskLeave: true, ApplicationLeave: true, ApproveLeave: false, CallRoll: false}, msg: '操作成功', code: 200})
         } else {
           res.send({data: {id: data[0].id, avatar: data[0].avatar, account: data[0].account, nickname: data[0].nickname, Attendance: true, IDRegister: true, AttendanceHistory: true, AskLeave: true, ApplicationLeave: true, ApproveLeave: true, CallRoll: true}, msg: '操作成功', code: 200})
         }
@@ -92,9 +91,9 @@ router.post('/loginType', (req, res) => {
 })
 // 老师创建签到
 router.post('/create', (req, res) => {
-  let { name, geo, startTime, endTime, id, lng, lat, code, account, prenum } = req.body.params
-  let addsql = `INSERT INTO setup(id,startTime,endTime,lng,lat,code,name,geo,account,prenum) VALUES(?,?,?,?,?,?,?,?,?)`
-  let addSqlParams = [`${id}`, `${startTime}`, `${endTime}`, `${lng}`, `${lat}`, `${code}`, `${name}`, `${geo}`, `${account}`, `${prenum}`]
+  let { name, geo, startTime, endTime, lateTime, lng, lat, code, account, prenum, dcns } = req.body.params
+  let addsql = `INSERT INTO setup(startTime,endTime,lateTime,lng,lat,code,name,geo,account,prenum,dcns) VALUES(?,?,?,?,?,?,?,?,?,?,?)`
+  let addSqlParams = [`${startTime}`, `${endTime}`, `${lateTime}`, `${lng}`, `${lat}`, `${code}`, `${name}`, `${geo}`, `${account}`, `${prenum}`, `${dcns}`]
   connection.query(addsql, addSqlParams, function (err, data) {
     if (err) {
       res.send({msg: '创建失败了'})
@@ -163,11 +162,24 @@ router.post('/selectattended', (req, res) => {
     }
   })
 })
+// 查询迟到时间
+router.post('/selectlatetime', (req, res) => {
+  let { code } = req.body.params
+  let selectsql = `select * from setup where code='${code}'`
+  connection.query(selectsql, function (err, data) {
+    if (err) {
+      res.send({msg: '请求失败了'})
+      throw err
+    } else {
+      res.send({code: 200, msg: '继续签到', data})
+    }
+  })
+})
 // 签到
 router.post('/toattendance', (req, res) => {
-  let { account, name, startTime, endTime, geo, attendTime, code } = req.body.params
-  let addsql = `INSERT INTO setuped(account,name,startTime,endTime,geo,attendTime,code) VALUES(?,?,?,?,?,?,?)`
-  let addSqlParams = [`${account}`, `${name}`, `${startTime}`, `${endTime}`, `${geo}`, `${attendTime}`, `${code}`]
+  let { account, nickname, name, startTime, endTime, geo, attendTime, code, department, classes, attend } = req.body.params
+  let addsql = `INSERT INTO setuped(account,nickname,name,startTime,endTime,geo,attendTime,code,department,classes,attend) VALUES(?,?,?,?,?,?,?,?,?,?,?)`
+  let addSqlParams = [`${account}`, `${nickname}`, `${name}`, `${startTime}`, `${endTime}`, `${geo}`, `${attendTime}`, `${code}`, `${department}`, `${classes}`, `${attend}`]
   connection.query(addsql, addSqlParams, function (err, data) {
     if (err) {
       res.send({msg: '签到失败了。。。'})
@@ -263,9 +275,9 @@ router.post('/changepwd', function (req, res, next) {
 // 请假
 router.post('/askleave', (req, res) => {
   console.log(req.body.params)
-  let { reason, name, startTime, endTime, status, account, code } = req.body.params
-  let addsql = `INSERT INTO askforholiday(reason,name,startTime,endTime,status,account,code) VALUES(?,?,?,?,?,?,?)`
-  let addSqlParams = [`${reason}`, `${name}`, `${startTime}`, `${endTime}`, `${status}`, `${account}`, `${code}`]
+  let { reason, name, startTime, endTime, status, account, code, department, classes, nickname } = req.body.params
+  let addsql = `INSERT INTO askforholiday(reason,name,startTime,endTime,status,account,code,department,classes,nickname) VALUES(?,?,?,?,?,?,?,?,?,?)`
+  let addSqlParams = [`${reason}`, `${name}`, `${startTime}`, `${endTime}`, `${status}`, `${account}`, `${code}`, `${department}`, `${classes}`, `${nickname}`]
   connection.query(addsql, addSqlParams, function (err, data) {
     if (err) {
       res.send({msg: '创建请假失败了。。。'})

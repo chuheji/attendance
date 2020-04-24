@@ -1,3 +1,8 @@
+/*
+ * @Author: 刘佑祥
+ * @LastEditors: 刘佑祥
+ * @LastEditTime: 2020-04-13 16:54:25
+ */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
@@ -11,6 +16,7 @@ import axios from 'axios'
 import store from './vuex/index'
 import VueSocketIO from 'vue-socket.io'
 import { getCookie } from './common/cookie'
+import './common/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 Vue.use(Vant)

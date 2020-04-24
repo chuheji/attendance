@@ -11,9 +11,9 @@
           <div class="start">签到码：{{item.code}}</div>
           <div class="mid">开始时间：{{item.startTime}}</div>
           <div class="end">结束时间：{{item.endTime}}</div>
-          <div slot="footer">
+          <!-- <div slot="footer">
             <van-button @click="del(item.code, item.name)" size="small" type="danger">删除</van-button>
-          </div>
+          </div> -->
         </van-panel>
       </div>
     </div>

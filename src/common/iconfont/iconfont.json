@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6119268",
+      "name": "删除",
+      "font_class": "delete-s",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "6367958",
+      "name": "添加",
+      "font_class": "add-circle-s",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    }
+  ]
+}

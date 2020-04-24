@@ -80,6 +80,9 @@ export default {
       data.status = this.status
       data.account = this.$store.state.account
       data.code = this.code
+      data.department = this.$store.state.department
+      data.classes = this.$store.state.classes
+      data.nickname = this.$store.state.nickname
       for (let item in data) {
         if (item !== 'code') {
           if (!data[item]) {
