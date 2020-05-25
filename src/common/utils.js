@@ -1,7 +1,7 @@
 /*
  * @Author: 刘佑祥
  * @LastEditors: 刘佑祥
- * @LastEditTime: 2020-04-12 11:44:18
+ * @LastEditTime: 2020-04-30 00:47:04
  */
 function picker () {
   let arr = []
@@ -12,7 +12,7 @@ function picker () {
 }
 
 function children () {
-  let classes = ['一班', '二班']
+  let classes = ['1601', '1602', '1603', '1604', '1701', '1702', '1703', '1704', '1801', '1802', '1803', '1804', '1901', '1902', '1903', '1904']
   let res = []
   for (let i = 0; i < classes.length; i++) {
     res.push({text: classes[i], children: picker()})

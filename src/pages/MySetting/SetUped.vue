@@ -62,10 +62,6 @@ export default {
         if (res.data.code === 200) {
           let arr = []
           arr.push(getCookie('account'))
-          this.$socket.emit('deattend', {
-            tokens: arr,
-            name: name
-          })
           history.go(0)
         }
       })

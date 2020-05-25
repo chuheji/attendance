@@ -2,7 +2,7 @@
  * @Description:签到
  * @Author: 刘佑祥
  * @LastEditors: 刘佑祥
- * @LastEditTime: 2020-04-22 18:27:04
+ * @LastEditTime: 2020-05-17 20:23:24
  -->
 <template>
   <div>
@@ -86,7 +86,7 @@ export default {
                 map.panTo(r.point)
                 _this.lat = r.point.lat
                 _this.lng = r.point.lng
-                // console.log('您的位置：' + _this.lng + ',' + _this.lat)
+                console.log(r)
               } else {
                 _this.$toast('网络错误,请检查网络')
               }
@@ -109,11 +109,6 @@ export default {
                 params: data
               }).then(res => {
                 this.$toast(res.data.msg)
-                if (res.data.code === 200) {
-                  this.$socket.emit('attendsuccess', {
-                    geo: this.result[0].geo
-                  })
-                }
               })
             } else {
               this.$toast('还未到签到地点！')

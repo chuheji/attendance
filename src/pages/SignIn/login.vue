@@ -1,3 +1,8 @@
+<!--
+ * @Author: 刘佑祥
+ * @LastEditors: 刘佑祥
+ * @LastEditTime: 2020-05-15 23:55:33
+ -->
 <template>
   <div>
     <h1 class="title">登录</h1>
@@ -71,15 +76,11 @@ export default {
         }).then(res => {
           if (res.data.code === 200) {
             this.$store.commit('LOG_IN', res.data.data)
-            this.$socket.emit('login', {
-              tokens: this.account,
-              account: this.account,
-              type: this.radio
-            })
             this.$toast(res.data.msg)
             _this.$router.push('/Home').catch(err => {
               console.log(err)
             })
+            history.go(0)
           } else {
             this.$toast(res.data.msg)
           }

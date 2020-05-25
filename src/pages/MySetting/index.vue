@@ -35,7 +35,6 @@ export default {
       show: false,
       actions: [
         { name: '更换头像' },
-        { name: '更改昵称' },
         { name: '修改密码' }
       ]
     }

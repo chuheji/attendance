@@ -19,10 +19,10 @@
       <van-tabbar-item
         replace
         to="/Attendance"
-        icon="chat"
+        icon="certificate"
         :info="message"
       >
-        消息
+        发现
       </van-tabbar-item>
       <van-tabbar-item
         replace

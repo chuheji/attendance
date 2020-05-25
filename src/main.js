@@ -1,7 +1,7 @@
 /*
  * @Author: 刘佑祥
  * @LastEditors: 刘佑祥
- * @LastEditTime: 2020-04-13 16:54:25
+ * @LastEditTime: 2020-05-15 23:56:51
  */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
@@ -14,7 +14,6 @@ import 'vant/lib/index.css'
 import request from './http'
 import axios from 'axios'
 import store from './vuex/index'
-import VueSocketIO from 'vue-socket.io'
 import { getCookie } from './common/cookie'
 import './common/iconfont/iconfont.css'
 
@@ -23,10 +22,6 @@ Vue.use(Vant)
 Vue.use(BaiduMap, {
   ak: 'jcUhhcIExVsZSthClfURrKniA2VlYmzO'
 })
-Vue.use(new VueSocketIO({
-  debug: true,
-  connection: 'http://localhost:5000'
-}))
 Vue.prototype.$request = request
 axios.interceptors.request.use(function (config) {
   store.state.isLoading = true
@@ -37,13 +32,12 @@ axios.interceptors.response.use(function (response) {
   return response
 })
 Vue.prototype.$axios = axios
-
 router.beforeEach((to, form, next) => {
   // 如果进入到的路由是登录页或者注册页面，则正常展示
   if (to.path === '/Login' || to.path === '/Register') {
     next()
   } else if (!(getCookie('nickname'))) {
-    // 转入login登录页面，登录成功后会将info存入localStorage
+    // 转入login登录页面，登录成功后会将info存入cookie
     next('/Login')
   } else {
     next()

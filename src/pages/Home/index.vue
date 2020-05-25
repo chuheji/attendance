@@ -1,3 +1,8 @@
+<!--
+ * @Author: 刘佑祥
+ * @LastEditors: 刘佑祥
+ * @LastEditTime: 2020-05-17 20:14:54
+ -->
 <template>
   <div class="container">
     <p class="bread">首页</p>
@@ -36,8 +41,7 @@ export default {
         {icon: 'todo-list-o', id: 'van-icon-todo-list-o', text: '请假', url: '/#/Home/AskLeave', show: this.getPower('AskLeave')},
         {icon: 'records', id: 'van-icon-records', text: '我的假条', url: '/#/Home/ApplicationLeave', show: this.getPower('ApplicationLeave')},
         {icon: 'completed', id: 'van-icon-completed', text: '批假', url: '/#/Home/ApproveLeave', show: this.getPower('ApproveLeave')},
-        {icon: 'friends-o', id: 'van-icon-friends-o', text: '课堂点名', url: '/#/Home/CallRoll', show: this.getPower('CallRoll')},
-        {icon: 'user-o', id: 'van-icon-user-o', text: '身份认证', url: '/#/Home/IDRegister', show: this.getPower('IDRegister')}
+        {icon: 'friends-o', id: 'van-icon-friends-o', text: '创建签到', url: '/#/MySetting/SetUp', show: this.getPower('CallRoll')}
       ]
     }
   },

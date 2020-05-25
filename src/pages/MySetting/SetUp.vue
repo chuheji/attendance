@@ -264,9 +264,6 @@ export default {
         .then(res => {
           if (res.data.code === 200) {
             this.$toast(res.data.msg)
-            this.$socket.emit('attend', {
-              name: this.name
-            })
             this.$router.push('/MySetting')
           } else {
             this.$toast(res.data.msg)
@@ -274,8 +271,9 @@ export default {
         })
     },
     searchcomplete (res) {
+      console.log(res)
       let ifm = []
-      ifm = res.Pq
+      res.Pq ? ifm = res.Pq : ifm = res.Ir
       this.center.lng = ifm[0].point.lng
       this.center.lat = ifm[0].point.lat
       this.geo = ifm[0].title

@@ -97,12 +97,6 @@ export default {
           params: data
         }).then(res => {
           this.$toast(res.data.msg)
-          if (res.data.code === 200) {
-            this.$socket.emit('needrecord', {
-              tokens: this.name,
-              account: this.$store.state.account
-            })
-          }
         })
     }
   },
